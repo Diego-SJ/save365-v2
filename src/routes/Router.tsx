@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import { Routes } from './routes';
 
 // views
@@ -11,6 +11,8 @@ import SignIn from '../components/pages/SignIn';
 // Redux
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { useGoogleAnalytics } from '../hooks/useGoogleAnalytics';
+import { useEffect } from 'react';
 
 const PrivateRoute = ({ path, component }: any) => {
 	const { isLoggedIn } = useSelector(({ user }: RootState) => user);
@@ -20,6 +22,13 @@ const PrivateRoute = ({ path, component }: any) => {
 };
 
 const Router = () => {
+	const { location } = useHistory();
+	const { setPageview } = useGoogleAnalytics();
+
+	useEffect(() => {
+		setPageview(location.pathname);
+	}, [location.pathname, setPageview]);
+
 	return (
 		<Switch>
 			<PrivateRoute path={Routes.settings} component={Settings} />

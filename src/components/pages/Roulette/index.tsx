@@ -9,17 +9,19 @@ import { ISavingDay } from '../../../typings/types';
 import Button from '../../common/Button';
 import MainLayout from '../../layout/MainLayout';
 import { Container, RouletteContent, RouletteText } from './Roulette.styled';
+import { useGoogleAnalytics } from '../../../hooks/useGoogleAnalytics';
 moment.locale('es');
 
 const Roulette = () => {
 	const dispatch = useDispatch();
 	const { enqueueSnackbar } = useSnackbar();
 	const { savingDays } = useSelector(({ user }: RootState) => user);
-
+	const { setEvent } = useGoogleAnalytics();
 	const [state, setState] = useState('');
 	const [dayRandomly, setDayRandomly] = useState('?');
 
 	const startRulette = () => {
+		setEvent('Roulette', 'Turn on the rullete');
 		setState('start');
 		setTimeout(async () => {
 			const remainingDays = [...daysOfTheYear];
@@ -34,6 +36,7 @@ const Roulette = () => {
 	};
 
 	const restartRullete = async () => {
+		setEvent('Roulette', 'Restart the rullete');
 		await dispatch(
 			recordNewSavingAction({
 				day: savingDays.length + 1,
