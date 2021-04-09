@@ -15,7 +15,7 @@ export const useGoogleAnalytics = () => {
 	const [gaInitialised, setGaInitialised] = useState(false);
 
 	const initReactGA = () => {
-		ReactGA.initialize('G-9HE5YELRLR');
+		ReactGA.initialize('UA-194279754-1');
 		ReactGA.pageview('test-init-pageview');
 		setGaInitialised(true);
 	};
