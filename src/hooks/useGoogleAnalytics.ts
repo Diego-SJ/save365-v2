@@ -11,7 +11,7 @@ const DEFAULT_CONFIG: any = {
 };
 
 export const useGoogleAnalytics = () => {
-	const [rgaConfig] = useState({ ...DEFAULT_CONFIG });
+	const [rgaConfig] = useState('G-P4FSEZX565');
 	const [gaInitialised, setGaInitialised] = useState(false);
 
 	const initReactGA = () => {
