@@ -2,20 +2,20 @@
 import { useState } from 'react';
 import ReactGA from 'react-ga';
 
-const DEFAULT_CONFIG: any = {
-	trackingId: process.env.REACT_APP_GA_ID,
-	debug: true,
-	gaOptions: {
-		cookieDomain: 'none'
-	}
-};
+// const DEFAULT_CONFIG: any = {
+// 	trackingId: process.env.REACT_APP_GA_ID,
+// 	debug: true,
+// 	gaOptions: {
+// 		cookieDomain: 'none'
+// 	}
+// };
 
 export const useGoogleAnalytics = () => {
-	const [rgaConfig] = useState('G-P4FSEZX565');
+	// const [rgaConfig] = useState('G-P4FSEZX565');
 	const [gaInitialised, setGaInitialised] = useState(false);
 
 	const initReactGA = () => {
-		ReactGA.initialize(rgaConfig);
+		ReactGA.initialize('G-P4FSEZX565');
 		ReactGA.pageview('test-init-pageview');
 		setGaInitialised(true);
 	};
