@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-unused-vars
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 // const DEFAULT_CONFIG: any = {
 // 	trackingId: process.env.REACT_APP_GA_ID,
@@ -12,10 +14,21 @@ import ReactGA from 'react-ga';
 
 export const useGoogleAnalytics = () => {
 	// const [rgaConfig] = useState('G-P4FSEZX565');
+	const { user } = useSelector(({ user }: RootState) => user);
 	const [gaInitialised, setGaInitialised] = useState(false);
 
+	useEffect(() => {
+		if (user?.email) {
+			initReactGA();
+		}
+	}, [user?.email]);
+
 	const initReactGA = () => {
-		ReactGA.initialize('UA-194279754-1');
+		ReactGA.initialize('UA-194279754-2', {
+			gaOptions: {
+				userId: user?.email
+			}
+		});
 		ReactGA.pageview('test-init-pageview');
 		setGaInitialised(true);
 	};
