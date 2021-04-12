@@ -17,12 +17,6 @@ export const useGoogleAnalytics = () => {
 	const { user } = useSelector(({ user }: RootState) => user);
 	const [gaInitialised, setGaInitialised] = useState(false);
 
-	useEffect(() => {
-		if (user?.email) {
-			initReactGA();
-		}
-	}, [user?.email]);
-
 	const initReactGA = () => {
 		ReactGA.initialize('UA-194279754-2', {
 			gaOptions: {
@@ -32,6 +26,12 @@ export const useGoogleAnalytics = () => {
 		ReactGA.pageview('test-init-pageview');
 		setGaInitialised(true);
 	};
+
+	useEffect(() => {
+		if (user?.email) {
+			initReactGA();
+		}
+	}, [user?.email, initReactGA]);
 
 	const setDimension = (object: any) => {
 		ReactGA.set(object);
