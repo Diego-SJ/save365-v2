@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
-import { RootState } from '../redux/store';
-import { GlobalStyles } from './Theme.styled';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
+import { RootState } from '../redux/store'
+import { GlobalStyles } from './Theme.styled'
 
 export const lightTheme = {
 	text: '#425C6C',
@@ -35,7 +35,7 @@ export const lightTheme = {
 		start: 'transparent',
 		end: 'transparent'
 	}
-};
+}
 
 export const darkTheme = {
 	...lightTheme,
@@ -59,17 +59,21 @@ export const darkTheme = {
 		start: '#0066ff',
 		end: '#a935ec'
 	}
-};
+}
 
 export const addOpacity = (color: string, opacity: number): string => {
-	const opacityHex = Math.round(opacity * 255).toString(16);
-	return `${color}${opacityHex}`;
-};
+	const opacityHex = Math.round(opacity * 255).toString(16)
+	return `${color}${opacityHex}`
+}
 
-export type ITheme = typeof lightTheme;
+export type ITheme = typeof lightTheme
 
-const Theme: React.FC = ({ children }) => {
-	const { darkMode } = useSelector(({ app }: RootState) => app);
+type ThemeProps = {
+	children: React.ReactNode
+}
+
+const Theme: React.FC<ThemeProps> = ({ children }) => {
+	const { darkMode } = useSelector(({ app }: RootState) => app)
 
 	return (
 		<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -78,7 +82,7 @@ const Theme: React.FC = ({ children }) => {
 				{children}
 			</>
 		</ThemeProvider>
-	);
-};
+	)
+}
 
-export default Theme;
+export default Theme

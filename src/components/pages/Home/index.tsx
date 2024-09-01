@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/store'
-import { addCommas } from '../../../tools/formatters'
+import numeral from 'numeral'
 import MainLayout from '../../layout/MainLayout'
 import { Chart, ChartAmount, ChartTitle } from './Home.styled'
 import { getCompletedDaysAction } from '../../../redux/features/userSlice'
@@ -23,7 +23,7 @@ const Home = () => {
 		<MainLayout title="Inicio">
 			<Chart>
 				<ChartTitle>Ahorro total</ChartTitle>
-				<ChartAmount>{`$${addCommas((totalSaving || 0)?.toString())}`}</ChartAmount>
+				<ChartAmount>{`${numeral(totalSaving).format('$0,0')}`}</ChartAmount>
 			</Chart>
 		</MainLayout>
 	)

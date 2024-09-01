@@ -1,6 +1,6 @@
-import React from 'react';
-import { ChevronRight } from 'react-feather';
-import Toogle from '../Toggle';
+import React from 'react'
+import { ChevronRight } from 'react-feather'
+import Toogle from '../Toggle'
 import {
 	Card,
 	CardTitle,
@@ -8,19 +8,20 @@ import {
 	SettingContent,
 	SettingIcon,
 	SettingName
-} from './SettingCard.styled';
+} from './SettingCard.styled'
 
 interface ISettingCard {
-	title?: string;
+	title?: string
+	children: React.ReactNode
 }
 
 interface ISetting {
-	icon?: JSX.Element;
-	title?: string;
-	onClick?: () => void;
-	action?: () => void;
-	danger?: boolean;
-	isChecked?: boolean;
+	icon?: JSX.Element
+	title?: string
+	onClick?: () => void
+	action?: () => void
+	danger?: boolean
+	isChecked?: boolean
 }
 
 export const Setting: React.FC<ISetting> = ({
@@ -39,8 +40,8 @@ export const Setting: React.FC<ISetting> = ({
 				{action && <Toogle onClick={action} isChecked={isChecked} />}
 			</SettingContent>
 		</SettingContainer>
-	);
-};
+	)
+}
 
 const SettingCard: React.FC<ISettingCard> = ({ title, children }) => {
 	return (
@@ -48,7 +49,7 @@ const SettingCard: React.FC<ISettingCard> = ({ title, children }) => {
 			<CardTitle>{title}</CardTitle>
 			{children}
 		</Card>
-	);
-};
+	)
+}
 
-export default SettingCard;
+export default SettingCard

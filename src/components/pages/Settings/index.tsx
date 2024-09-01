@@ -1,33 +1,32 @@
-import { useSnackbar } from 'notistack';
-import React from 'react';
-import { Moon, Power, UserX } from 'react-feather';
-import { useDispatch, useSelector } from 'react-redux';
-import { setDarkMode } from '../../../redux/features/appSlice';
-import { deleteAccountAction, signoutAction } from '../../../redux/features/userSlice';
-import { RootState } from '../../../redux/store';
-import SettingCard, { Setting } from '../../common/SettingCard';
-import MainLayout from '../../layout/MainLayout';
-import { Button, Container, Options } from './Settings.styled';
+import { useSnackbar } from 'notistack'
+import { Moon, Power, UserX } from 'react-feather'
+import { useDispatch, useSelector } from 'react-redux'
+import { setDarkMode } from '../../../redux/features/appSlice'
+import { deleteAccountAction, signoutAction } from '../../../redux/features/userSlice'
+import { RootState } from '../../../redux/store'
+import SettingCard, { Setting } from '../../common/SettingCard'
+import MainLayout from '../../layout/MainLayout'
+import { Button, Container, Options } from './Settings.styled'
 
 const SettingsPage = () => {
-	const dispatch = useDispatch();
-	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-	const { darkMode } = useSelector(({ app }: RootState) => app);
+	const dispatch = useDispatch()
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+	const { darkMode } = useSelector(({ app }: RootState) => app)
 
 	const onSignOut = () => {
-		dispatch(signoutAction());
-	};
+		dispatch(signoutAction())
+	}
 
 	const handleThemeChange = () => {
-		dispatch(setDarkMode());
-	};
+		dispatch(setDarkMode())
+	}
 
 	const action = (key: any) => (
 		<Options>
 			<Button onClick={() => dispatch(deleteAccountAction())}>Aceptar</Button>
 			<Button onClick={() => closeSnackbar(key)}>Cancelar</Button>
 		</Options>
-	);
+	)
 
 	const onDeleteAccount = () => {
 		enqueueSnackbar('Se borrarán tus datos, ¿Continuar?', {
@@ -38,8 +37,8 @@ const SettingsPage = () => {
 				horizontal: 'center'
 			},
 			action
-		});
-	};
+		})
+	}
 
 	return (
 		<MainLayout title="Ajustes">
@@ -58,7 +57,7 @@ const SettingsPage = () => {
 				</SettingCard>
 			</Container>
 		</MainLayout>
-	);
-};
+	)
+}
 
-export default SettingsPage;
+export default SettingsPage

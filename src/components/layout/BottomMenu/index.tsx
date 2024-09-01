@@ -1,26 +1,26 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { ItemContent, Menu, MenuItem } from './BottomMenu.styled';
-import { Activity, Home, RefreshCcw, Settings } from 'react-feather';
-import { Routes } from '../../../routes/routes';
-import { useGoogleAnalytics } from '../../../hooks/useGoogleAnalytics';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ItemContent, Menu, MenuItem } from './BottomMenu.styled'
+import { Activity, Home, RefreshCcw, Settings } from 'react-feather'
+import { Routes } from '../../../routes/routes'
+import { useGoogleAnalytics } from '../../../hooks/useGoogleAnalytics'
 
 //REDUX
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPage } from '../../../redux/features/appSlice';
-import { RootState } from '../../../redux/store';
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentPage } from '../../../redux/features/appSlice'
+import { RootState } from '../../../redux/store'
 
 const BottomMenu = () => {
-	const history = useHistory();
-	const dispatch = useDispatch();
-	const { currentPage } = useSelector(({ app }: RootState) => app);
-	const { setPageview } = useGoogleAnalytics();
+	const history = useNavigate()
+	const dispatch = useDispatch()
+	const { currentPage } = useSelector(({ app }: RootState) => app)
+	const { setPageview } = useGoogleAnalytics()
 
 	const handleRoute = (path: string) => {
-		history.push(path);
-		dispatch(setCurrentPage(path));
-		setPageview(path);
-	};
+		history(path)
+		dispatch(setCurrentPage(path))
+		setPageview(path)
+	}
 
 	return (
 		<Menu>
@@ -54,7 +54,7 @@ const BottomMenu = () => {
 				</ItemContent>
 			</MenuItem>
 		</Menu>
-	);
-};
+	)
+}
 
-export default BottomMenu;
+export default BottomMenu

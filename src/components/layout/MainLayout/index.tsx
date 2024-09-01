@@ -1,8 +1,9 @@
-import React from 'react';
-import { Main, MainHeader, Title } from './MainLayout.styled';
+import React from 'react'
+import { Main, MainHeader, Title } from './MainLayout.styled'
 
 interface IProps {
-	title?: string;
+	title?: string
+	children: React.ReactNode
 }
 
 const MainLayout: React.FC<IProps> = ({ title, children }) => {
@@ -13,7 +14,7 @@ const MainLayout: React.FC<IProps> = ({ title, children }) => {
 			</MainHeader>
 			{children}
 		</Main>
-	);
-};
+	)
+}
 
-export default MainLayout;
+export default MainLayout
