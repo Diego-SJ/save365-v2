@@ -40,6 +40,7 @@ export const getAllDays = (uid: string) => {
 }
 
 export const saveNewDay = (array: any, uid: string) => {
+	console.log(array)
 	return db.doc(uid).set({ days: array })
 }
 
@@ -63,12 +64,10 @@ export const onAuthStateChanged = (onChange: any) => {
 }
 
 export const deleteAccount = async (uid: number) => {
-	if (window.confirm('¿Deseas eliminar tu cuenta?')) {
-		try {
-			await db.doc(uid.toString()).delete()
-			return true
-		} catch (error) {
-			return false
-		}
+	try {
+		await db.doc(uid.toString()).delete()
+		return true
+	} catch (error) {
+		return false
 	}
 }

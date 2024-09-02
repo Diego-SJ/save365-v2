@@ -1,4 +1,4 @@
-import { useSnackbar } from 'notistack'
+import { toast } from 'sonner'
 import { Moon, Power, UserX } from 'react-feather'
 import { useDispatch, useSelector } from 'react-redux'
 import { setDarkMode } from '../../../redux/features/appSlice'
@@ -6,12 +6,13 @@ import { deleteAccountAction, signoutAction } from '../../../redux/features/user
 import { RootState } from '../../../redux/store'
 import SettingCard, { Setting } from '../../common/SettingCard'
 import MainLayout from '../../layout/MainLayout'
-import { Button, Container, Options } from './Settings.styled'
+import { Button, Container, ModalContent, ModalMask, ModalRoot, Options } from './Settings.styled'
+import { useState } from 'react'
 
 const SettingsPage = () => {
 	const dispatch = useDispatch()
-	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 	const { darkMode } = useSelector(({ app }: RootState) => app)
+	const [openModal, setOpenModal] = useState(false)
 
 	const onSignOut = () => {
 		dispatch(signoutAction())
@@ -21,23 +22,14 @@ const SettingsPage = () => {
 		dispatch(setDarkMode())
 	}
 
-	const action = (key: any) => (
-		<Options>
-			<Button onClick={() => dispatch(deleteAccountAction())}>Aceptar</Button>
-			<Button onClick={() => closeSnackbar(key)}>Cancelar</Button>
-		</Options>
-	)
-
 	const onDeleteAccount = () => {
-		enqueueSnackbar('Se borrarán tus datos, ¿Continuar?', {
-			variant: 'error',
-			persist: true,
-			anchorOrigin: {
-				vertical: 'bottom',
-				horizontal: 'center'
-			},
-			action
-		})
+		setOpenModal(true)
+	}
+
+	const confirmDeleteAccount = () => {
+		dispatch(deleteAccountAction())
+		setOpenModal(false)
+		toast.success('Cuenta eliminada')
 	}
 
 	return (
@@ -56,6 +48,23 @@ const SettingsPage = () => {
 					<Setting onClick={onSignOut} icon={<Power />} title="Cerrar sesión" danger />
 				</SettingCard>
 			</Container>
+			{openModal && (
+				<ModalRoot>
+					<ModalMask />
+					<ModalContent>
+						<h2 style={{ margin: 0 }}>¿Estás seguro?</h2>
+						<p>Esta acción eliminará tu cuenta de forma permanente.</p>
+						<p>Esta acción no se puede deshacer.</p>
+						<p>¿Estás seguro de que deseas continuar?</p>
+						<Options>
+							<Button onClick={() => setOpenModal(false)}>Cancelar</Button>
+							<Button onClick={confirmDeleteAccount} className="danger">
+								Eliminar cuenta
+							</Button>
+						</Options>
+					</ModalContent>
+				</ModalRoot>
+			)}
 		</MainLayout>
 	)
 }

@@ -108,7 +108,8 @@ export const recordNewSavingAction =
 	(newSave: ISavingDay) => async (dispatch: any, getState: any) => {
 		try {
 			const { user, savingDays } = getState().user
-			const savesUpdated = [...savingDays, newSave]
+			const savesUpdated = [...(savingDays || []), newSave]?.filter((i) => i.amount !== 0)
+
 			await saveNewDay(savesUpdated, user.uid)
 			dispatch(getCompletedDaysAction())
 		} catch (error: any) {
